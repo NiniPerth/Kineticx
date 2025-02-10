@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Plotting Tool</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+	<style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff5d6e, #ff9e44, #fce04c, #6bc3ff, #c14dff); /* Rainbow gradient background */
+            background-size: 400% 400%;
+            animation: rainbow 10s ease infinite; /* Animated gradient */
+            color: #fff;
+            overflow-x: hidden;
+        }
+        header {
+            background: rgba(0, 0, 0, 0.4); /* Slight dark overlay */
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            font-size: 2.5em;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.6); /* Soft glow */
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            position: relative;
+            padding: 5px;
+            transition: color 0.3s, transform 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #fce04c; /* Rainbow yellow */
+            transform: scale(1.1);
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+        }
+        main {
+            padding: 20px;
+            color: #333;
+        }
+        section {
+            background: rgba(255, 255, 255, 0.8); /* Light translucent background */
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #ff9e44; /* Rainbow orange */
+            text-shadow: 0 0 8px rgba(255, 165, 0, 0.6);
+        }
+        label {
+            display: block;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        input, select {
+            width: calc(100% - 22px);
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ff9e44; /* Rainbow orange border */
+            border-radius: 5px;
+            background-color: #fff;
+            color: #333;
+            font-size: 16px;
+            transition: 0.3s ease;
+        }
+        input:focus, select:focus {
+            border-color: #6bc3ff; /* Light blue on focus */
+            outline: none;
+            box-shadow: 0 0 8px rgba(255, 105, 180, 0.6); /* Soft glow effect */
+        }
+        button {
+            background: linear-gradient(135deg, #ff5d6e, #ff9e44, #fce04c, #6bc3ff, #c14dff); /* Rainbow gradient */
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #ff5d6e, #ff9e44, #fce04c, #6bc3ff, #c14dff);
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+        }
+        #result-display {
+            margin-top: 20px;
+            color: #ff9e44; /* Rainbow orange */
+        }
+        #result-display p {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        #equation-suggestions, #calculation-steps {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+        #equation-suggestions h3, #calculation-steps h3 {
+            color: #6bc3ff; /* Rainbow blue */
+            text-shadow: 0 0 8px rgba(100, 180, 255, 0.6);
+        }
+        @keyframes rainbow {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+		
+    </style>
+	 <script>
+        function generateGraph() {
+            let title = document.getElementById('graph-title').value || "Graph";
+            let xValues = document.getElementById('x-values').value.split(',').map(num => parseFloat(num.trim()));
+            let yValues = document.getElementById('y-values').value.split(',').map(num => parseFloat(num.trim()));
+            let xLabel = document.getElementById('x-label').value || "X-axis";
+            let yLabel = document.getElementById('y-label').value || "Y-axis";
+
+            if (xValues.length !== yValues.length || xValues.some(isNaN) || yValues.some(isNaN)) {
+                alert("X and Y values must be valid numbers and have the same number of elements.");
+                return;
+            }
+
+            let ctx = document.getElementById('graphCanvas').getContext('2d');
+            if (window.myChart) {
+                window.myChart.destroy();
+            }
+
+            let n = xValues.length;
+            let sumX = xValues.reduce((a, b) => a + b, 0);
+            let sumY = yValues.reduce((a, b) => a + b, 0);
+            let sumXY = xValues.reduce((sum, x, i) => sum + x * yValues[i], 0);
+            let sumX2 = xValues.reduce((sum, x) => sum + x * x, 0);
+
+            let slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+            let intercept = (sumY - slope * sumX) / n;
+            
+            let bestFitLine = [
+                { x: Math.min(...xValues), y: slope * Math.min(...xValues) + intercept },
+                { x: Math.max(...xValues), y: slope * Math.max(...xValues) + intercept }
+            ];
+            
+            let centroidX = sumX / n;
+            let centroidY = sumY / n;
+
+            window.myChart = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            label: "Data Points",
+                            data: xValues.map((x, i) => ({ x: x, y: yValues[i] })),
+                            backgroundColor: 'red',
+                            pointRadius: 5
+                        },
+                        {
+                            label: "Best Fit Line",
+                            data: bestFitLine,
+                            borderColor: 'blue',
+                            backgroundColor: 'transparent',
+                            type: 'line',
+                            fill: false
+                        },
+                        {
+                            label: "Centroid",
+                            data: [{ x: centroidX, y: centroidY }],
+                            backgroundColor: 'green',
+                            pointRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: title
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: xLabel
+                            },
+                            type: 'linear',
+                            position: 'bottom'
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: yLabel
+                            }
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('centroid-display').innerHTML = `Centroid: (${centroidX.toFixed(2)}, ${centroidY.toFixed(2)})`;
+            document.getElementById('gradient-display').innerHTML = `Gradient (Slope): ${slope.toFixed(2)} | Equation: y = ${slope.toFixed(2)}x + ${intercept.toFixed(2)}`;
+        }
+
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            let pdf = new jsPDF();
+            let title = document.getElementById('graph-title').value || "Graph";
+            let xLabel = document.getElementById('x-label').value || "X-axis";
+            let yLabel = document.getElementById('y-label').value || "Y-axis";
+            pdf.text(title, 10, 10);
+            pdf.text(`X-axis: ${xLabel}`, 10, 20);
+            pdf.text(`Y-axis: ${yLabel}`, 10, 30);
+
+            let canvas = document.getElementById("graphCanvas");
+            let imgData = canvas.toDataURL("image/png");
+            pdf.addImage(imgData, 'PNG', 15, 40, 180, 100);
+            pdf.save("graph.pdf");
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Graph Plotting Tool</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projectilemotion.html">Projectile Motion</a></li>
+                <li><a href="linearmotion.html">Linear Motion</a></li>
+                <li><a href="imagesolver.html">Image Solver</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="graph">
+            <h2>Generate Graph PDF</h2>
+            <div class="input-container">
+                <input type="text" id="graph-title" placeholder="Graph Title">
+                <input type="text" id="x-values" placeholder="X-values (comma-separated)">
+                <input type="text" id="y-values" placeholder="Y-values (comma-separated)">
+                <input type="text" id="x-label" placeholder="X-axis Label">
+                <input type="text" id="y-label" placeholder="Y-axis Label">
+            </div>
+            <button onclick="generateGraph()">Generate Graph</button>
+            <button onclick="downloadPDF()">Download as PDF</button>
+            <canvas id="graphCanvas" width="500" height="400"></canvas>
+            <div id="centroid-display"></div>
+            <div id="gradient-display"></div>
+        </section>
+    </main>
+</body>
+</html>
