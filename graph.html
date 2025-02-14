@@ -140,8 +140,32 @@
             position: fixed;
             bottom: 0;
             width: 100%;
-			height: 5%;
+			height: 7%;
         } 
+		.large-button {
+            width: 170px;
+            height: 50px;
+            font-size: 15px;
+            padding: 20px 20px;
+        }
+		/* Button Styles */
+        button {
+            background: linear-gradient(45deg, #ff5d6e, #ff9e44, #fce04c, #6bc3ff, #c14dff);
+            background-size: 300% 300%;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: background-position 0.5s, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-position: 100% 0%;
+            transform: scale(1.05);
+        }
     </style>
 	 <script>
         function generateGraph() {
@@ -260,8 +284,9 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="projectilemotion.html">Projectile Motion</a></li>
                 <li><a href="linearmotion.html">Linear Motion</a></li>
-				<li><a href="game.html">Quiz Game</a></li>
+				<li><a href="game.html">Game</a></li>
 				<li><a href="imagesolver.html">Image Solver</a></li>
+				<li><a href="metadata.html">Metadata</a></li>
             </ul>
         </nav>
     </header>
@@ -281,6 +306,14 @@
             <div id="centroid-display"></div>
             <div id="gradient-display"></div>
         </section>
+		<section id="choices">
+            <button class="large-button" onclick="window.location.href='index.html'">Home</button>
+            <button class="large-button" onclick="window.location.href='linearmotion.html'">Linear Motion</button>
+            <button class="large-button" onclick="window.location.href='projectilemotion.html'">Projectile Motion</button>
+			<button class="large-button" onclick="window.location.href='game.html'">Game</button>
+            <button class="large-button" onclick="window.location.href='imagesolver.html'">Image Solver</button>
+			<button class="large-button" onclick="window.location.href='metadata.html'">Metadata</button>
+        </section>
     </main>
 </body>
 <footer class="credit-footer">
@@ -288,4 +321,5 @@
     <img src="qrcode.png" alt="Donate via QR Code" width="50" style="vertical-align: middle; margin-left: 10px;">
 </footer>
 </html>
+
 
