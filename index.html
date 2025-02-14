@@ -135,8 +135,51 @@
             position: fixed;
             bottom: 0;
             width: 100%;
-			height: 5%;
+			height: 7%;
         }        
+		.large-button {
+            width: 170px;
+            height: 50px;
+            font-size: 15px;
+            padding: 20px 20px;
+        }
+		.counter-container {
+    text-align: center;
+    margin: 20px auto;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#visitorCounter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #fce04c; /* LED-style Yellow */
+    background: black;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #fce04c;
+    letter-spacing: 5px;
+    font-family: 'Courier New', Courier, monospace;
+    text-shadow: 0 0 10px #fce04c;
+}
+
+#visitorCounter span {
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Animation Effect */
+.bounce {
+    transform: scale(1.2);
+}
     </style>
 </head>
 <body>
@@ -148,8 +191,9 @@
                 <li><a href="linearmotion.html">Linear Motion</a></li>
                 <li><a href="projectilemotion.html">Projectile Motion</a></li>
                 <li><a href="graph.html">Graph</a></li>
-                <li><a href="game.html">Quiz Game</a></li>
+                <li><a href="game.html">Game</a></li>
 				<li><a href="imagesolver.html">Image Solver</a></li>
+				<li><a href="metadata.html">Metadata</a></li>
             </ul>
         </nav>
     </header>
@@ -208,10 +252,12 @@
         </section>
 		
 		<section id="choices">
-            <h3>Select a Physics Topic</h3>
-            <button onclick="window.location.href='linearmotion.html'">Linear Motion</button>
-            <button onclick="window.location.href='projectilemotion.html'">Projectile Motion</button>
-            <button onclick="window.location.href='graph.html'">Graph</button>
+            <button class="large-button" onclick="window.location.href='linearmotion.html'">Linear Motion</button>
+            <button class="large-button" onclick="window.location.href='projectilemotion.html'">Projectile Motion</button>
+            <button class="large-button" onclick="window.location.href='graph.html'">Graph</button>
+			<button class="large-button" onclick="window.location.href='game.html'">Game</button>
+            <button class="large-button" onclick="window.location.href='imagesolver.html'">Image Solver</button>
+			<button class="large-button" onclick="window.location.href='metadata.html'">Metadata</button>
         </section>
 
     </main>
@@ -226,10 +272,54 @@
             }
         }
     </script>
+	<section class="counter-container">
+        <h3>Website Visitors</h3>
+        <div id="visitorCounter">
+            <span id="digit1">0</span>
+            <span id="digit2">0</span>
+            <span id="digit3">0</span>
+            <span id="digit4">0</span>
+        </div>
+    </section>
+
+
+    <script>
+    function animateDigit(element) {
+        element.classList.add("bounce");
+        setTimeout(() => element.classList.remove("bounce"), 200);
+    }
+
+    function updateCounterDisplay(count) {
+        let countStr = count.toString().padStart(4, "0"); // Ensure 4-digit format
+        let digits = document.querySelectorAll("#visitorCounter span");
+
+        countStr.split("").forEach((num, index) => {
+            if (digits[index].textContent !== num) {
+                animateDigit(digits[index]);
+                digits[index].textContent = num;
+            }
+        });
+    }
+
+    // Visitor Counter Logic
+    if (localStorage.getItem("pageVisits")) {
+        let count = parseInt(localStorage.getItem("pageVisits")) + 1;
+        localStorage.setItem("pageVisits", count);
+        updateCounterDisplay(count);
+    } else {
+        localStorage.setItem("pageVisits", 1);
+        updateCounterDisplay(1);
+    }
+</script>
+
+	
+	
+
 </body>
 <footer class="credit-footer">
     <p style="display: inline;">Credit by THE RUBRYSICS | Support Us ❤️</p>
     <img src="qrcode.png" alt="Donate via QR Code" width="50" style="vertical-align: middle; margin-left: 10px;">
 </footer>
 </html>
+
 
