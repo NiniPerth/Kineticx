@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Game</title>
+    <title>Game</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
@@ -144,7 +144,7 @@
             position: fixed;
             bottom: 0;
             width: 100%;
-			height: 5%;
+			height: 7%;
         } 
 		    .game-section {
         text-align: center;
@@ -160,6 +160,30 @@
     .game-cover:hover {
         transform: scale(1.05);
     }
+	.large-button {
+            width: 170px;
+            height: 50px;
+            font-size: 15px;
+            padding: 20px 20px;
+        }
+		/* Button Styles */
+        button {
+            background: linear-gradient(45deg, #ff5d6e, #ff9e44, #fce04c, #6bc3ff, #c14dff);
+            background-size: 300% 300%;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: background-position 0.5s, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-position: 100% 0%;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -172,9 +196,11 @@
                 <li><a href="graph.html">Graph</a></li>
 				<li><a href="linearmotion.html">Linear Motion</a></li>
 				<li><a href="imagesolver.html">Image Solver</a></li>
+				<li><a href="metadata.html">Metadata</a></li>
             </ul>
         </nav>
     </header>
+	<main>
 <section class="game-section">
     <h2>Play the Game</h2>
     <h3>Click the button below to play the game.</h3>
@@ -187,6 +213,15 @@
         <img src="gameimage2.jpg" alt="Game Preview" class="game-cover">
     </a>
 </section>
+        <section id="choices">
+            <button class="large-button" onclick="window.location.href='index.html'">Home</button>
+            <button class="large-button" onclick="window.location.href='linearmotion.html'">Linear Motion</button>
+            <button class="large-button" onclick="window.location.href='projectilemotion.html'">Projectile Motion</button>
+			<button class="large-button" onclick="window.location.href='graph.html'">Graph</button>
+            <button class="large-button" onclick="window.location.href='imagesolver.html'">Image Solver</button>
+			<button class="large-button" onclick="window.location.href='metadata.html'">Metadata</button>
+        </section>
+</main>
 <footer class="credit-footer">
     <p style="display: inline;">Credit by THE RUBRYSICS | Support Us ❤️</p>
     <img src="qrcode.png" alt="Donate via QR Code" width="50" style="vertical-align: middle; margin-left: 10px;">
