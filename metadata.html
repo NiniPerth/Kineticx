@@ -18,45 +18,25 @@
             overflow-x: hidden;
         }
 
-        /* Header Style with Roll Effect */
+        /* Header Style */
         header {
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.5);
             color: white;
-            padding: 10px 20px;
+            padding: 20px;
             text-align: center;
             border-bottom: 3px solid #fff;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            transition: height 0.5s ease-in-out;
-            height: 60px; /* Collapsed height */
-            overflow: hidden;
-            z-index: 1000;
-        }
-
-        header:hover {
-            height: 180px; /* Expanded height when hovered */
         }
 
         h1 {
-            font-size: 2em;
-            margin: 0;
+            font-size: 2.5em;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
         }
 
-        /* Navigation Bar */
+        /* Navigation Bar Style */
         nav ul {
             list-style-type: none;
             padding: 0;
-            margin: 0;
-            transition: opacity 0.5s ease-in-out;
-            opacity: 0;
-        }
-
-        header:hover nav ul {
-            opacity: 1;
         }
 
         nav ul li {
@@ -76,18 +56,6 @@
             color: #fce04c; /* Rainbow Yellow */
             transform: scale(1.1);
             text-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
-        }
-		/* Rolling Header Animation */
-        @keyframes rainbow {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
         }
 
         /* Main Content Area */
@@ -175,7 +143,6 @@
             font-size: 15px;
             padding: 20px 20px;
         }
-		
     </style>
 </head>
 <body>
@@ -203,3 +170,4 @@
         </section>
 </main>		
 </body>
+
