@@ -93,10 +93,12 @@
             background-position: 100% 0%;
             transform: scale(1.05);
         }
-
+        h1, h2,h3 {
+		   text-align:center;
+		}
         h3 {
             cursor: pointer;
-            color: #1e88e5;
+            color: black;
             text-shadow: 0 0 8px rgba(100, 180, 255, 0.6);
         }
 
@@ -143,6 +145,54 @@
             font-size: 15px;
             padding: 20px 20px;
         }
+	    .team-section {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            color: black;
+        }
+
+        .team-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .team-member {
+            text-align: center;
+            width: 150px;
+        }
+
+        .team-member img {
+            width: 140px;
+            height: 180px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            background: none;
+        }
+        .lecturer-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-align: left;
+            padding: 20px;
+        }
+
+        .lecturer-section img {
+            width: 240px;
+            height: 270px;
+            border-radius: 50%;
+            background: none;
+        }
+
+         iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+		}
     </style>
 </head>
 <body>
@@ -155,16 +205,73 @@
                 <li><a href="projectilemotion.html">Projectile Motion</a></li>
                 <li><a href="graph.html">Graph</a></li>
                 <li><a href="game.html">Game</a></li>
+				<li><a href="validity.html">Validity</a></li>
+				<li><a href="assesment.html">Assessment</a></li>
             </ul>
         </nav>
     </header>
 <main>
+    <section>
+	    <h3>Who We Are?</h3>
+        <h3>Meet our team, The Rubrysics which made up of five dedicated students and an advisor. We’ve come together to develop and refine innovative website that enhance physics learning experiences. Our combined expertise and passion for education fuel the success of this project</h3>
+	</section>      
+		  
+    <section class="team-section">
+            <h2>Meet Our Team</h2>
+            <div class="lecturer-section">
+                <img src="lecturer.png" alt="Guided Lecturer">
+                <div>
+                    <p><strong>NURUL SHAIEDAH BINTI ROSLAN</strong></p>
+					<p>Teacher Advisor</p>
+                    <p>Welcome to The KINETICX</p>
+					<p>As teacher advisor, I'm thrilled to guide you through the fascinating world of physics. Whether you're a student preparing for your SPM or Matriculation exams, an educator looking to enrich your teaching methods or a physics enthusiast eager to dive deeper into linear motion or projectle motion, you’ve come to the right place!</p>
+					<p>Our website is designed to provide clear explanations, practical examples and interactive exercises to help you master these essential physics concepts. Let's embark on this learning journey together and unlock the full potential of your physics skills.</p>
+                </div>
+            </div>
+            
+            
+            <div class="team-container">
+                <div class="team-member">
+                    <img src="team1.png" alt="Team Member 1">
+                    <p><strong>ZAKRIENI AMISYAH BINTI ZAKARIA</strong></p>
+                    <p>Project Lead</p>
+                </div>
+                <div class="team-member">
+                    <img src="team2.png" alt="Team Member 2">
+                    <p><strong>PUTRI JASMINE ALIEYA BINTI HANIFUNNIZRU</strong></p>
+                    <p>Developer</p>
+                </div>
+                <div class="team-member">
+                    <img src="team3.png" alt="Team Member 3">
+                    <p><strong>MUHAMMAD HAMBALI KASYFI BINTI SARIFUDIN</strong></p>
+                    <p>Analyst</p>
+                </div>
+                <div class="team-member">
+                    <img src="team4.png" alt="Team Member 4">
+                    <p><strong>MUHAMMAD AKMAL BIN SHAHRIN</strong></p>
+                    <p>Designer</p>
+                </div>
+                <div class="team-member">
+                    <img src="team5.png" alt="Team Member 5">
+                    <p><strong>AIRIL DANIEL MOHAMMAD FADZILL</strong></p>
+                    <p>Researcher</p>
+                </div>
+            </div>
+        </section>
+
+		<section>
+		<h3>Review and support us!</h3>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSewO2cTDXa5SD2QyHpkl8JmDe3GF2adFdAXqw3xrTJh6xl1Gw/viewform?embedded=true"></iframe> 
+        </section>
+		
         <section id="choices">
 		    <button class="large-button" onclick="window.location.href='index.html'">Home</button>
             <button class="large-button" onclick="window.location.href='linearmotion.html'">Linear Motion</button>
             <button class="large-button" onclick="window.location.href='projectilemotion.html'">Projectile Motion</button>
             <button class="large-button" onclick="window.location.href='graph.html'">Graph</button>
 			<button class="large-button" onclick="window.location.href='game.html'">Game</button>
+			<button class="large-button" onclick="window.location.href='validity.html'">Validity</button>
+			<button class="large-button" onclick="window.location.href='assesment.html'">Assessment</button>
         </section>
 </main>		
 </body>
